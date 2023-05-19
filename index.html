@@ -15,6 +15,66 @@
 </head>
 
 <body>
+    <div class="main">
+        <div class="select-party-container hide">
+            <div class="headline-container">
+                <h1 class="headline select-party">Select Party</h1>
+            </div>
+            <div class="player-select-icons-container">
+                <div class="player-1-select-container mark">
+                    <span class="player-1-mark mark-text">Player 1</span>
+                    <strong class="player-1-symbol player-symbol">X</strong>
+                </div>
+                <div class="vertical-rule"></div>
+                <div class="player-2-select-container mark">
+                    <span class="player-1-mark mark-text">Player 2</span>
+                    <strong class="player-2-symbol player-symbol">O</strong>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn swithch-btn">Switch</button>
+                <button class="btn start-btn">Start</button>
+            </div>
+        </div>
+        <div class="game-on-container ">
+            <div class="chance-container headline">
+                <span class="chance-x symbol">X</span>
+                <span class="chance-o symbol">O</span>
+            </div>
+            <div class="game-grid-container">
+                <table class="game-grid">
+                    <tr class="row-1">
+                        <td class="cell position-1">X</td>
+                        <td class="cell position-2">X</td>
+                        <td class="cell position-3">X</td>
+                    </tr>
+                    <tr class="row2">
+                        <td class="cell position-4">X</td>
+                        <td class="cell position-5">X</td>
+                        <td class="cell position-6">X</td>
+                    </tr>
+                    <tr class="row-3">
+                        <td class="cell position-7">X</td>
+                        <td class="cell position-8">X</td>
+                        <td class="cell position-9">X</td>
+                    </tr>
+                </table>
+                <div class="btn-container">
+                    <button class="btn quit-btn">Quit</button>
+                </div>
+            </div>
+        </div>
+        <div class="winner-container hide">
+            <div class="declare-winner-container">
+                <h1 class="headline">Winner</h1>
+                <span class="winner-name">Player 1</span>
+                <span class="winner-symbol">X</span>
+            </div>
+            <div class="btn-container">
+                <button class="btn restart-btn">Restart</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 
