@@ -16,7 +16,7 @@
 
 <body>
     <div class="main">
-        <div class="select-party-container hide">
+        <div class="select-party-container">
             <div class="headline-container">
                 <h1 class="headline select-party">Select Party</h1>
             </div>
@@ -32,31 +32,31 @@
                 </div>
             </div>
             <div class="btn-container">
-                <button class="btn swithch-btn">Switch</button>
+                <button class="btn switch-btn">Switch</button>
                 <button class="btn start-btn">Start</button>
             </div>
         </div>
-        <div class="game-on-container ">
+        <div class="game-on-container hide">
             <div class="chance-container headline">
-                <span class="chance-x symbol">X</span>
-                <span class="chance-o symbol">O</span>
+                <span class="chance-1 symbol">X</span>
+                <span class="chance-2 symbol">O</span>
             </div>
             <div class="game-grid-container">
                 <table class="game-grid">
                     <tr class="row-1">
-                        <td class="cell position-1">X</td>
-                        <td class="cell position-2">X</td>
-                        <td class="cell position-3">X</td>
+                        <td class="cell position-1" data-index=1 data-vac=""></td>
+                        <td class="cell position-2" data-index=2 data-vac=""></td>
+                        <td class="cell position-3" data-index=3 data-vac=""></td>
                     </tr>
                     <tr class="row2">
-                        <td class="cell position-4">X</td>
-                        <td class="cell position-5">X</td>
-                        <td class="cell position-6">X</td>
+                        <td class="cell position-4" data-index=4 data-vac=""></td>
+                        <td class="cell position-5" data-index=5 data-vac=""></td>
+                        <td class="cell position-6" data-index=6 data-vac=""></td>
                     </tr>
                     <tr class="row-3">
-                        <td class="cell position-7">X</td>
-                        <td class="cell position-8">X</td>
-                        <td class="cell position-9">X</td>
+                        <td class="cell position-7" data-index=7 data-vac=""></td>
+                        <td class="cell position-8" data-index=8 data-vac=""></td>
+                        <td class="cell position-9" data-index=9 data-vac=""></td>
                     </tr>
                 </table>
                 <div class="btn-container">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="winner-container hide">
+        <div class="winner-container">
             <div class="declare-winner-container">
                 <h1 class="headline">Winner</h1>
                 <span class="winner-name">Player 1</span>
