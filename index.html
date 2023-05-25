@@ -38,8 +38,8 @@
         </div>
         <div class="game-on-container hide">
             <div class="chance-container headline">
-                <span class="chance-1 symbol">X</span>
-                <span class="chance-2 symbol">O</span>
+                <span class="chance-1 symbol turn" id="player1">X</span>
+                <span class="chance-2 symbol" id="player2">O</span>
             </div>
             <div class="game-grid-container">
                 <table class="game-grid">
@@ -61,10 +61,11 @@
                 </table>
                 <div class="btn-container">
                     <button class="btn quit-btn">Quit</button>
+                    <button class="btn restart-btn hide">Restart</button>
                 </div>
             </div>
         </div>
-        <div class="winner-container">
+        <!-- <div class="winner-container">
             <div class="declare-winner-container">
                 <h1 class="headline">Winner</h1>
                 <span class="winner-name">Player 1</span>
@@ -73,7 +74,7 @@
             <div class="btn-container">
                 <button class="btn restart-btn">Restart</button>
             </div>
-        </div>
+        </div> -->
     </div>
     <script src="script.js"></script>
 </body>

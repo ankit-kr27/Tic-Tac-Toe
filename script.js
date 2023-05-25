@@ -1,17 +1,27 @@
 const selectPartyContainer = document.querySelector(".select-party-container");
 const gameContainer = document.querySelector(".game-on-container");
-const resultContainer = document.querySelector('.winner-container');
+// const resultContainer = document.querySelector('.winner-container');
+
+const gameGrid = document.querySelector('.game-grid')
 
 const switchBtn = document.querySelector('.switch-btn');
 const startBtn = document.querySelector(".start-btn")
 
+const quitBtn = document.querySelector(".quit-btn")
+const restartBtn = document.querySelector('.restart-btn')
+
+const chance1 = document.querySelector('#player1')
+const chance2 = document.querySelector('#player2')
+
+const tds = Array.from(document.querySelectorAll('td'))
+
 const player1State = {
     pName: "Player1",
-    p1sym: 'X'
+    pSym: 'X'
 }
 const player2State = {
-    pName: "Player1",
-    p2sym: 'O'
+    pName: "Player2",
+    pSym: 'O'
 }
 
 function setGameState(state) {   // states : init, ongame, result
@@ -20,21 +30,21 @@ function setGameState(state) {   // states : init, ongame, result
             // hiding and unhiding containers
             selectPartyContainer.classList.remove("hide");
             gameContainer.classList.add('hide');
-            resultContainer.classList.add('hide');
+            // resultContainer.classList.add('hide');
             break
         }
         case 'ongame': {
             // hiding and unhiding containers
             selectPartyContainer.classList.add("hide");
             gameContainer.classList.remove('hide');
-            resultContainer.classList.add('hide');
+            // resultContainer.classList.add('hide');
             break
         }
         case 'result': {
             // hiding and unhiding containers
             selectPartyContainer.classList.add("hide");
-            gameContainer.classList.add('hide');
-            resultContainer.classList.remove('hide');
+            quitBtn.classList.add('hide')
+            restartBtn.classList.remove('hide')
             break
         }
     }
@@ -45,19 +55,19 @@ startBtn.addEventListener('click', () => {
 })
 
 switchBtn.addEventListener('click', () => {
-    let temp = player1State.p1sym
-    player1State.p1sym = player2State.p2sym
-    player2State.p2sym = temp
+    let temp = player1State.pSym
+    player1State.pSym = player2State.pSym
+    player2State.pSym = temp
 
     updateDisplay(player1State, player2State)
 })
 
 function updateDisplay(p1, p2) {
-    document.querySelector('.player-1-symbol').innerText = p1.p1sym
-    document.querySelector('.player-2-symbol').innerText = p2.p2sym
+    document.querySelector('.player-1-symbol').innerText = p1.pSym
+    document.querySelector('.player-2-symbol').innerText = p2.pSym
 
-    document.querySelector('.chance-1').innerText = player1State.p1sym
-    document.querySelector('.chance-2').innerText = player2State.p2sym
+    document.querySelector('.chance-1').innerText = player1State.pSym
+    document.querySelector('.chance-2').innerText = player2State.pSym
 }
 
 // *******************************************
@@ -69,7 +79,7 @@ function initiateGame() {
 initiateGame();
 
 // *************** ONGAME ********************
-
+// ***************SETTING STATES*************
 const winningCombinations = [
     [1, 2, 3],
     [4, 5, 6],
@@ -81,13 +91,12 @@ const winningCombinations = [
     [3, 5, 7]
 ]
 
-
 function currentPlayerSym() {
     if (playerTurn % 2 == 0) {
-        return player1State.p1sym
+        return player1State.pSym
     }
     else {
-        return player2State.p2sym
+        return player2State.pSym
     }
 }
 
@@ -106,28 +115,28 @@ function setOccupancy(index) {
     }
 }
 
+// **************CHECKING WINNER******************
+
 function checkWinner() {
     let containsElement;
     if (p1occupied.length >= 3) {
         for (let combination of winningCombinations) {
             containsElement = combination.every(element => {
-                element in p1occupied
+                return p1occupied.includes(element)
             })
-            if(containsElement){return player1State}
+            if (containsElement) { return [player1State, combination] }
         }
     }
     if (p2occupied.length >= 3) {
         for (let combination of winningCombinations) {
             containsElement = combination.every(element => {
-                element in p2occupied
+                return p2occupied.includes(element);
             })
-            if(containsElement){return player2State}
+            if (containsElement) { return [player2State, combination] }
         }
     }
     return undefined
 }
-
-const gameGrid = document.querySelector('.game-grid')
 
 gameGrid.addEventListener('click', (e) => {
     let cell = e.target
@@ -137,13 +146,73 @@ gameGrid.addEventListener('click', (e) => {
         // console.log(cell.dataset.vac)
         setOccupancy(parseInt(cell.dataset.index))
         playerTurn++;
+        turnDisply()
     }
-    let winner = checkWinner()
+    let winnerNcomb = checkWinner()
     // console.log(winner)
-    if(winner) { declareWinner(winner) }
+    if (winnerNcomb) { declareWinner(winnerNcomb) }
+    function areCellsFull(tds){
+        return tds.every(td => td.dataset.vac !== '')
+    }
+    console.log(areCellsFull(tds))
+    if(areCellsFull(tds) && !winnerNcomb){
+        declareTie()
+    }
 })
 
-function declareWinner(winner){
+function turnDisply(){
+    if (playerTurn % 2 == 0) {
+        chance1.classList.add('turn')
+        chance2.classList.remove('turn')
+    }
+    else {
+        chance1.classList.remove('turn')
+        chance2.classList.add('turn')
+    }
+}
+
+// **********DECLARING TIE***********************
+function declareTie(){
+    setGameState('result');
+    chance1.classList.add('hide');
+    chance2.classList.add('hide');
+    document.querySelector('.chance-container').innerHTML = `<span class="declaration">It's Tie</span>`;
+}
+// **********DECLARING WINNER********************
+
+function declareWinner(winnerNcomb) {
     setGameState('result');
     // console.log("winner declared")
+    chance1.classList.add('hide');
+    chance2.classList.add('hide');
+
+    if(winnerNcomb[1]){
+        for(comb of winnerNcomb[1]){
+            document.querySelector(`.position-${comb}`).style.color = '#384e45'
+            document.querySelector(`.position-${comb}`).style.backgroundColor = '#6b9080'
+        }
+    }
+
+    document.querySelector('.chance-container').innerHTML = `<span class="declaration">Winner-${winnerNcomb[0].pSym}</span>`;
 }
+
+// ******************* WANNA QUIT ************************
+
+quitBtn.addEventListener('click', ()=>{
+    let ifSureQuit = confirm("Sure wan'na Quit? You'll lose");
+    if(!ifSureQuit)return;
+
+    setGameState('result')
+    if (playerTurn % 2 == 0) {
+        declareWinner([player2State, undefined])
+    }
+    else {
+        declareWinner([player1State, undefined])
+    }
+})
+
+// ******************** RESTART GAME *********************
+
+restartBtn.addEventListener('click', ()=>{
+    location.reload()
+})

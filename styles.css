@@ -139,19 +139,37 @@ body {
 
 .chance-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     top: 4rem;
-    width: 14rem;
+    width: 25rem;
 }
 
 .chance-container .symbol{
-    font-size: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-weight: 900;
+    border-radius: 50%;
+    height: 6rem;
+    width: 6rem;
+}
+
+.declaration{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
     font-weight: 900;
 }
 
-.chance-o{
-    font-size: 72px;
+.turn{
+    background-color: var(--s-dark);
 }
+
+/* .chance-1{
+    font-size: 72px;
+} */
 
 .game-grid {
     height: 19rem;
